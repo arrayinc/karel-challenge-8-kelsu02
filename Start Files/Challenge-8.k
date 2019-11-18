@@ -12,7 +12,7 @@ on each successive corner.
 
 Your job is to write the program that converts a paint-by-number picture
 of this sort into the corresponding completed masterpiece. In writing the program,
-Karel can count on the following facts about the world:
+Karel can count on the following facts about the world: 
 
 • The world contains an arbitrary number of beeper piles but no interior walls.
 
@@ -24,3 +24,45 @@ a wall or another beeper pile.
 
 • Karel must finish execution facing east at the northeast corner of the world.
 */
+import "turns";
+
+function eastWall() {
+	while (frontIsClear()) {
+		if (beepersPresent()){
+			pickBeeper();
+			while(beepersInBag()) {
+				move();
+				putBeeper();
+			}
+		}
+		move();
+	}
+	turnLeft();
+	move();
+	turnRight();
+}
+
+function westWall() {
+	while (frontIsClear()) {
+		if (beepersPresent()){
+			pickBeeper();
+			while(beepersInBag()) {
+				move();
+				putBeeper();
+			}
+		}
+		move();
+	}
+	turnRight();
+	move();
+	turnLeft();
+}
+
+
+function Solve(){
+	while (leftIsClear()) {
+		eastWall();
+		westWall();
+	}
+}
+
