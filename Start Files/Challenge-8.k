@@ -20,7 +20,7 @@ Karel can count on the following facts about the world:
 a wall or another beeper pile.
 
 • Karel always starts facing east in the southwest corner
-(1st Street and 1st Avenue) with an empty beeper bag.
+(1st Street and 1st Avenue) with an empty beeper bag. 
 
 • Karel must finish execution facing east at the northeast corner of the world.
 */
@@ -57,9 +57,6 @@ function goWest() {
 	while (frontIsClear()) {
 		moveToBeeper();
 		allBeepers();
-		if (frontIsClear()) {
-			move();
-		}
 		placeBeeper();
 	}
 }
@@ -94,5 +91,5 @@ function Solve(){
 		returnEast();
 	}
 	goWest();
-} 
+}
 
