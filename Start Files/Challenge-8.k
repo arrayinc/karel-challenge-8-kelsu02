@@ -26,43 +26,73 @@ a wall or another beeper pile.
 */
 import "turns";
 
-function eastWall() {
-	while (frontIsClear()) {
-		if (beepersPresent()){
-			pickBeeper();
-			while(beepersInBag()) {
-				move();
-				putBeeper();
-			}
-		}
-		move();
+function allBeepers() {
+	while (beepersPresent()) {
+		pickBeeper();
 	}
-	turnLeft();
-	move();
-	turnRight();
 }
 
-function westWall() {
-	while (frontIsClear()) {
-		if (beepersPresent()){
-			pickBeeper();
-			while(beepersInBag()) {
-				move();
-				putBeeper();
-			}
+function moveToBeeper() {
+		if (noBeepersPresent()) {
+			move();
 		}
-		move();
-	}
-	turnRight();
-	move();
-	turnLeft();
 }
 
+function moveToWall() {
+	while (frontIsClear()) {
+		move();
+	}
+}
+
+function placeBeeper() {
+	while (beepersInBag()) {
+		putBeeper();
+		if (frontIsClear()) {
+			move();
+		}
+	}
+}
+
+function goWest() {
+	while (frontIsClear()) {
+		moveToBeeper();
+		allBeepers();
+		if (frontIsClear()) {
+			move();
+		}
+		placeBeeper();
+	}
+}
+
+function turnEast() {
+	while (notFacingEast()) {
+		turnRight();
+	}
+}
+
+function turnNorth() {
+	while (notFacingNorth()) {
+		turnRight();
+	}
+}
+
+function returnEast() {
+	turnAround();
+	while (frontIsClear()) {
+		move();
+	}
+	turnNorth();
+	if (frontIsClear()) {
+		move();
+	}
+	turnEast();
+}
 
 function Solve(){
 	while (leftIsClear()) {
-		eastWall();
-		westWall();
+		goWest();
+		returnEast();
 	}
-}
+	goWest();
+} 
 
